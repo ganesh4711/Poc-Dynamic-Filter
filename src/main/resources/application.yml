@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/DynamicPricingEngine-dev
+    username: postgres
+    password: ganesh
+  jpa:
+    properties:
+      hibernate:
+        format-sql: true
+      temp:
+        use_jdbc_metadata_defaults: false
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+server:
+  port: 8083
+
