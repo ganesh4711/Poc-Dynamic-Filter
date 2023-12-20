@@ -19,6 +19,23 @@ import java.util.Map;
 public class FilterService {
     @Autowired
     private LTLRepository repository;
+
+    public List<LTLContract> getAllLtlContractsByOrgIdAndFilter(long orgId, Map<String, String> filter, int pageNumber, int pageSize) {
+
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        Page<LTLContract> ltlContractPage = repository.findAll(applyFilters(orgId, filter), page);
+
+        return ltlContractPage.getContent();
+    }
+
+
+    public List<LTLContract> getAllFilteredContracts(long orgId, String orgName, String orgType, LocalDate effective, LocalDate expiry, int pageNumber, int pageSize)
+    {
+        PageRequest page = PageRequest.of(pageNumber, pageSize);
+       Page<LTLContract> ltlContractPage= repository.findfilteredContracts(orgId,orgName,orgType,effective,expiry,page);
+       return ltlContractPage.getContent();
+    }
+
     static Specification<LTLContract> applyFilters(long orgId, Map<String, String> filters) throws RuntimeException{
         return (root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -49,14 +66,4 @@ public class FilterService {
             return builder.and(predicates.toArray(new Predicate[0]));
         };
     }
-
-    public List<LTLContract> getAllLtlContractsByOrgIdAndFilter(long orgId, Map<String, String> filter, int pageNumber, int pageSize) {
-
-        Pageable page = PageRequest.of(pageNumber, pageSize);
-        Page<LTLContract> ltlContractPage = repository.findAll(applyFilters(orgId, filter), page);
-
-        return ltlContractPage.getContent();
-    }
-
-
 }
