@@ -22,6 +22,6 @@ public interface LTLRepository extends JpaRepository<LTLContract,Long> {
             "AND (?2 IS NULL OR LOWER(o2.name) ILIKE LOWER(?2) || '%') " +
             "and (?3 is null or lower(ot.name) ilike lower(?3) || '%') " +
             "and (cast(?4 as DATE) is null or lc.effective_date >= ?4) " +
-            "and (cast(?5 as DATE) is null or lc.expiry_date  >= ?5)")
+            "and (cast(?5 as DATE) is null or lc.expiry_date  >= ?5)",nativeQuery = true)
     Page<LTLContract> findfilteredContracts(long orgId, String orgName, String orgType, LocalDate effective, LocalDate expiry, PageRequest page);
 }

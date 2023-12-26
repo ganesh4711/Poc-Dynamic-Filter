@@ -25,23 +25,10 @@ public class FilterController {
         try {
              return filterService.getAllLtlContractsByOrgIdAndFilter(orgId, filter, pageNumber, pageSize);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {e.printStackTrace();
             System.out.println(e.getMessage());
             return null;
         }
     }
-
-    // 2nd approach
-    @GetMapping("/organization/{orgId}/filter2")
-    public List<LTLContract> getAllLtlContractsByFilters(@RequestParam(required = false) String orgName,
-                                                         @RequestParam(required = false) String  orgType,
-                                                         @RequestParam(required = false) LocalDate effective,
-                                                         @RequestParam(required = false) LocalDate expiry, @PathVariable("orgId") long orgId,
-                                                         @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int pageSize
-    ){
-        return filterService.getAllFilteredContracts(orgId,orgName,orgType,effective,expiry,pageNumber,pageSize);
-    }
-
 
 }
